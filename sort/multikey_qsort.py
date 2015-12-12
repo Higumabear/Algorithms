@@ -1,3 +1,4 @@
+#バグありぽい
 def multikey_qsort(arr, idx = 0):
 	if not arr:
 		return []
