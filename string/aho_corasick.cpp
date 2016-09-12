@@ -6,9 +6,9 @@ using namespace std;
 
 class AhoCorasick{
 public:
-  AhoCorasick(){};
+  AhoCorasick(const vector<string> &pat) : pattern(pat) { build(pat); };
   ~AhoCorasick(){};
-  void build(const vector<string> &pat){
+  void build(const vector<string> &pat) {
     root = new trie();
     for(int i = 0; i < (int)pat.size(); i++){
       trie *v = root;
@@ -52,7 +52,7 @@ public:
       while(v->node[c] == NULL) v = v->fail;
       v = v->node[c];
       for(int j = 0; j < v->matched_pat.size(); j++)
-	ans.push_back(make_pair(v->matched_pat[j], i));
+	ans.push_back(make_pair(v->matched_pat[j], i + 1 - pattern[j].length()));
     }
     return ans;
   }
@@ -63,23 +63,19 @@ private:
     vector<int> matched_pat;
     trie(){ fill(node, node + 0x100, (trie*)0); }
   };
-
   trie *root;
+  const vector<string> &pattern;
 };
 
 
 int main(){
   vector<string> pat;
-  pat.push_back("ab");
-  pat.push_back("b");  
-  pat.push_back("c");
-  pat.push_back("e");
+  pat.push_back("a");
+  pat.push_back("aa");  
+  pat.push_back("aaa");
 
-  AhoCorasick ac;
-  ac.build(pat);
-  //                 0123456789
-  string g;
-  cin >> g;
+  AhoCorasick ac(pat);
+  string g; cin >> g;
   auto u = ac.match(g);
   for(auto v : u){
     cout << pat[v.first] << " " << v.second << endl;
