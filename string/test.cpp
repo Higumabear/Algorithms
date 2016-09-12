@@ -1,14 +1,16 @@
 #include <string>
 #include <queue>
+#include <map>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class AhoCorasick{
 public:
-  AhoCorasick(){};
+  AhoCorasick(const vector<string> &pat) : pattern(pat) { build(pat); };
   ~AhoCorasick(){};
-  void build(const vector<string> &pat){
+  void build(const vector<string> &pat) {
     root = new trie();
     for(int i = 0; i < (int)pat.size(); i++){
       trie *v = root;
@@ -52,10 +54,26 @@ public:
       while(v->node[c] == NULL) v = v->fail;
       v = v->node[c];
       for(int j = 0; j < v->matched_pat.size(); j++)
-	ans.push_back(make_pair(v->matched_pat[j], i));
+	ans.push_back(make_pair(v->matched_pat[j], i + 1 - pattern[j].length()));
     }
     return ans;
   }
+
+  map<int, int> matchm(string s){
+    int L = s.length();
+    trie *v = root;
+
+    map<int, int> ans;
+    for(int i = 0; i < L; i++){
+      int c = s[i];
+      while(v->node[c] == NULL) v = v->fail;
+      v = v->node[c];
+      for(int j = 0; j < v->matched_pat.size(); j++)
+	ans[v->matched_pat[j]] = 1;
+    }
+    return ans;
+  }
+
 private:
   struct trie{
     trie *node[0x100];
@@ -63,25 +81,29 @@ private:
     vector<int> matched_pat;
     trie(){ fill(node, node + 0x100, (trie*)0); }
   };
-
   trie *root;
+  const vector<string> &pattern;
 };
 
 
 int main(){
-  vector<string> pat;
-  pat.push_back("ab");
-  pat.push_back("b");  
-  pat.push_back("c");
-  pat.push_back("e");
+  int N;
+  cin >> N;
 
-  AhoCorasick ac;
-  ac.build(pat);
-  //                 0123456789
-  string g;
-  cin >> g;
-  auto u = ac.match(g);
-  for(auto v : u){
-    cout << pat[v.first] << " " << v.second << endl;
+  for(int i = 0; i < N; i++){
+    int M; cin >> M;
+    string g; cin >> g;
+    vector<string> pat;
+    for(int j = 0; j < M; j++){
+      string s; cin >> s;
+      pat.push_back(s);
+    }
+
+    AhoCorasick ac(pat);
+    map<int, int> u = ac.matchm(g);
+    for(int j = 0; j < pat.size(); j++){
+      if(u.count(j)) cout << "y" << endl;
+      else cout << "n" << endl;
+    }
   }
 }
