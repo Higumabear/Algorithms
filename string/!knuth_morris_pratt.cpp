@@ -6,36 +6,34 @@ using namespace std;
 
 vector<int> KMP(string text, string pattern){
   int T = text.size(), P = pattern.size();
-  vector<int> skip(P, 1);
-  skip[0] = 1;
-  for(int j = 1; j < P; j++){
-    int k;
-    for(k = 1; k < j; k++){
-      int m = k;
-      while(m < j && pattern[m] == pattern[m - k]) m++;
-      if(m == j) break;
-    }
-    skip[j] = k;
+  vector<int> fail(P + 1, -1), ret;
+  fail[1] = 0;
+  int i = 2, j = 0;
+  while(i <= P){
+    if(pattern[i - 1] == pattern[j]) fail[i] = j + 1, i++, j++;
+    else if(j > 0) j = fail[j];
+    else fail[i] = 0, i++;
   }
-  for(int i = 0; i < P; i++) cout << skip[i] << " ";
+  for(i = 0, j = 0; i < T; i++){
+    while(text[i] != pattern[j] && j != -1) j = fail[j];
+    if(++j == P) ret.push_back(i - P + 1);
+  }
+  for(int i = 0; i < P; i++){
+    cout << pattern[i] << '\t';
+  }
   cout << endl;
-  vector<int> ans;
-  int i = 0, j;
-  while(i < T){
-    int tmpi = i, j = 0;
-    while(text[tmpi] == pattern[j]) tmpi++, j++;
-    if(j == P){
-      ans.push_back(i);
-      i++;
-    }else i += skip[j];
+  for(int i = 0; i < P; i++){
+    cout << fail[i] << '\t';
   }
-  return ans;
+  cout << endl;
+  return ret;
 }
 
 int main(){
   string s, t;
   cin >> s >> t;
   vector<int> a = KMP(s,t);
-  for(auto u : a) cout << u << endl;
+  for(int i = 0; i < a.size(); i++) 
+    cout << a[i] << endl;
   return 0;
 }
