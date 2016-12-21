@@ -6,16 +6,13 @@ using namespace std;
 
 void slide_min(const vector<int> &val, int K){
   deque<int> deq;
-  
   for(int i = 0; i < val.size(); i++){
-    if(deq.empty()) deq.push_back(val[i]);
-    else{
-      while(!deq.empty() && deq.back() < val[i]) deq.pop_back();
-      deq.push_back(val[i]);
-    }
-    if(i >= val.size() - 1){
-      cout << deq.front() << endl;
-      deq.pop_front();
+    while(!deq.empty() && val[deq.back()] >= val[i]) deq.pop_back();
+    deq.push_back(i);
+    
+    if(i - K + 1 >= 0){
+      cout << val[deq.front()] << endl;
+      if(i - K + 1 == deq.front()) deq.pop_front();
     }
   }
 }
