@@ -21,7 +21,7 @@ template <typename T> class AVL{
     fixht(x), fixht(y);
     return y;
   }
-  node lrot(node *x){
+  node *lrot(node *x){
     node *y = x->r;
     x->r = y->l;
     y->l = x;

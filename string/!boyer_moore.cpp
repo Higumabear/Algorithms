@@ -15,9 +15,10 @@ vector<int> boyer_moore(string text, string pattern){
     while(j >= 0 && text[i] == pattern[j]) --i, --j;
     if(j < 0){
       pos.push_back(i + 1);
-      i += M + 1, j = M - 1;
+      i += M + 1;
     }
     else i += skip[text[i]];
+    cout << i << " " << j << endl;
   }
   return pos;
 }
@@ -27,6 +28,6 @@ int main(){
   string s = "aa";
   cin >> t >> s;
   auto v = boyer_moore(t, s);
-  for(int i = 0; i < v.size(); i++) cout << v[i] << " ";
-  cout << endl;
+  for(int i = 0; i < v.size(); i++) cout << v[i] << endl;
+  return 0;
 }
