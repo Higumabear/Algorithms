@@ -1,10 +1,21 @@
+/*
+  Boyer-Moore string matching
+  オリジナル・バージョン
+
+  Verified : 
+  http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_A
+  
+  最悪ケースの入力ではTLE
+  http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B
+ */
+
 #include <string>
 #include <vector>
 #include <iostream>
 
 using namespace std;
 
-vector<int> boyer_moore(string text, string pattern){
+vector<int> boyer_moore(const string &text, const string &pattern){
   int N = text.length(), M = pattern.length();
   vector<int> skip(0x100, M);
   for(int i = 0; i < M - 1; i++) skip[pattern[i]] = M - i - 1;
@@ -16,9 +27,9 @@ vector<int> boyer_moore(string text, string pattern){
     if(j < 0){
       pos.push_back(i + 1);
       i += M + 1;
-    }
-    else i += skip[text[i]];
-    cout << i << " " << j << endl;
+    }else
+      i += (M - j > skip[text[i]]) ? M - j : skip[text[i]];
+    if(i % 10 == 0)cerr << i << " ";
   }
   return pos;
 }
@@ -27,7 +38,6 @@ int main(){
   string t = "aaaaaaaaaa";
   string s = "aa";
   cin >> t >> s;
-  auto v = boyer_moore(t, s);
-  for(int i = 0; i < v.size(); i++) cout << v[i] << endl;
+  for(auto u : boyer_moore(t, s)) cout << u << endl;
   return 0;
 }
