@@ -1,6 +1,5 @@
 /*
   Leftist heap
-
   
  */
 #include<iostream>
