@@ -1,5 +1,6 @@
 #include <vector>
 #include <stddef.h>
+#include <iostream>
 
 using namespace std;
 
@@ -8,7 +9,7 @@ template <typename T> class AVL{
     T key;
     int height;
     node *l, *r;
-    node(T &key) : key(key), height(1), l(NULL), r(NULL) {}
+    node(T key) : key(key), height(1), l(NULL), r(NULL) {}
   } *root;
 
   int ht(node *x) { return x ? x->height : 0; }
@@ -21,7 +22,7 @@ template <typename T> class AVL{
     fixht(x), fixht(y);
     return y;
   }
-  node lrot(node *x){
+  node *lrot(node *x){
     node *y = x->r;
     x->r = y->l;
     y->l = x;
@@ -40,9 +41,7 @@ template <typename T> class AVL{
     }
     return x;
   }
-public:
-  AVL() : root(NULL) {};
-  node *insert(node *x, const T &key){
+  node *insert(node *x, const T key){
     if(!x) return new node(key);
     if(key < x->key) x->l = insert(x->l, key);
     else             x->r = insert(x->r, key);
@@ -54,7 +53,7 @@ public:
     x->l = removemin(x->l);
     return balance(x);
   }
-  node *remove(node *x, const T &key){
+  node *remove(node *x, const T key){
     if(!x) return NULL;
     if(key < x->key)      x->l = remove(x->l, key);
     else if(key > x->key) x->r = remove(x->r, key);    
@@ -70,4 +69,33 @@ public:
     }
     return balance(x);
   }
+public:
+  AVL() : root(NULL) {};
+  void insert(const T key){ root = insert(root, key); }
+  void remove(const T key){ root = remove(root, key); }
+  void func(node *x){
+    if(x->l){
+      cerr << x->key << "->" << x->l->key << endl;
+      func(x->l);
+    }
+    if(x->r){
+      cerr << x->key << "->" << x->r->key << endl;
+      func(x->r);
+    }
+  }
+  void debug(){ 
+    func(root); 
+  }
 };
+
+int dat[10] = {1,3,5,2,7,6,10,848,238,12};
+
+int main(){
+  AVL<int> avl;
+  for(int i = 0; i < 10; i++)
+    avl.insert(dat[i]);
+  //avl.debug();
+  avl.remove(10);
+  avl.debug();
+  return 0;
+}
