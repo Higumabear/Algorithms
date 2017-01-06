@@ -1,8 +1,9 @@
 /*
-  Dijkstra shortest path problem
+  Bellman-Ford 
+  shortest path problem & negative cost circle path checker
 
   Complexity:
-  O(m log n) 
+  O(nm) 
   n : number of vertices
   m : number of edges 
   
@@ -39,32 +40,33 @@ void add_edge(int from, int to, int cost){
   g[from].push_back(edge(from, to, cost));
 }
 
-//distに最短距離が入る。経路がない場合はINF。
+//distに最短距離が入る。経路がない場合はINF。負閉路を含む場合は-INF
 //prev_nodeにそのノードの一つ前のノードが入る。
 //idx == prev_node[idx] となったら始点
 int prev_node[100100];
 int dist[100100];
-int dijkstra(vector<vector<edge> > g, int s, int t){
+int bellman_ford(vector<vector<edge> > g, int s, int t){
   int V = g.size();
-  priority_queue<edge, vector<edge>, greater<edge> > Q;
-  Q.push(edge(-2, s, 0));
   fill(dist, dist + 100100, INF);
   fill(prev_node, prev_node + 100100, -1);
   
+  bool update;
   dist[s] = 0;
-  while(!Q.empty()){
-    edge e = Q.top(); Q.pop();
-    if(prev_node[e.to] != -1) continue;
-
-    prev_node[e.to] = e.from;
-    for(int i = 0; i < g[e.to].size(); i++){
-      edge f = g[e.to][i];
-      if(dist[f.to] > dist[e.to] + f.cost){
-	dist[f.to] = dist[e.to] + f.cost;
-	Q.push(edge(f.from, f.to, f.cost + dist[e.to]));
+  prev_node[s] = s;
+  for(int i = 0; i < V; i++){
+    update = false;
+    for(int j = 0; j < V; j++){
+      for(int k = 0; k < g[j].size(); k++){
+	int from = j, to = g[j][k].to, cost = g[j][k].cost;
+	if(dist[to] > dist[from] + cost){
+	  dist[to] = dist[from] + cost;
+	  prev_node[to] = from;
+	  update = true;
+	}
       }
     }
-  }  
+  }
+  if(update) return -INF; 
   return dist[t];
 }
 
