@@ -16,10 +16,10 @@
 ###graph  
 
 ####最短経路問題  
-* 一点最短経路問題 ー ダイクストラ法(Dijkstra) [[C++]](/graph/dijkstra.cpp)
+* 一点最短経路問題 - ダイクストラ法(Dijkstra) [[C++]](/graph/dijkstra.cpp)
 
 ####全域木問題  
-* 最小全域木 ー クラスカル法 (Kruscal) [[C++]](/graph/kruscal.cpp)
-* 最小全域木 ー プリム法 (Prim) [[C++]](/graph/prim.cpp)
+* 最小全域木 - クラスカル法 (Kruscal) [[C++]](/graph/kruscal.cpp)
+* 最小全域木 - プリム法 (Prim) [[C++]](/graph/prim.cpp)
 
 ###numerics  
