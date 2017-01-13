@@ -18,7 +18,7 @@
 
 using namespace std;
 
-vector<int> _Z_algorithm(const string &s){
+vector<int> Z_algorithm(const string &s){
   vector<int> z(s.size(), 0);
   int l = 0, r = 0;
   for(int i = 1; i < s.size(); i++){
@@ -38,7 +38,7 @@ int main(){
   cin >> t >> p;
   int l = p.size();
   p += "$" + t;
-  vector<int> z = _Z_algorithm(p);
+  vector<int> z = Z_algorithm(p);
   for(int i = l + 1; i < z.size(); i++) 
     if(z[i] == l) cout << i - l - 1 << endl;
 }
