@@ -12,14 +12,19 @@
 ###sort  
 
 ###string  
+####文字列検索  
+* Zアルゴリズム [[C++]](string/z_algorithm.cpp)
 
 ###graph  
 
 ####最短経路問題  
-* 一点最短経路問題 - ダイクストラ法(Dijkstra) [[C++]](/graph/dijkstra.cpp)
+単一始点最短経路問題
+* ダイクストラ法 (Dijkstra) [[C++]](/graph/dijkstra.cpp)
+* ベルマン-フォード法 (Bellman-Ford) [C++]
 
 ####全域木問題  
-* 最小全域木 - クラスカル法 (Kruscal) [[C++]](/graph/kruscal.cpp)
-* 最小全域木 - プリム法 (Prim) [[C++]](/graph/prim.cpp)
+最小全域木
+* クラスカル法 (Kruscal) [[C++]](/graph/kruscal.cpp)
+* プリム法 (Prim) [[C++]](/graph/prim.cpp)
 
 ###numerics  

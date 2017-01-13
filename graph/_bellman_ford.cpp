@@ -25,7 +25,7 @@
 using namespace std;
 
 typedef long long ll;
-const int INF = (1 << 31) - 1;
+const int INF = (1 << 30) - 1;
 
 struct edge{
   int from, to, cost;
@@ -73,6 +73,7 @@ int bellman_ford(vector<vector<edge> > g, int s, int t){
 int main(int argc, char **argv){
   int V, E, r;
   scanf("%d %d %d", &V, &E, &r);
+  fill(dist, dist + 100100, INF);
 
   g.resize(V);
   for(int i = 0; i < E; i++){
@@ -80,9 +81,12 @@ int main(int argc, char **argv){
     scanf("%d %d %d", &a, &b, &c);
     add_edge(a, b, c);
   }
-  dijkstra(g, r, 0);
-  for(int i = 0; i < V; i++){
-    if(dist[i] == INF) printf("INF\n");
-    else printf("%d\n", dist[i]);
+  int v = bellman_ford(g, r, 0);
+  if(v == -INF) printf("NEGATIVE CYCLE\n");
+  else{
+    for(int i = 0; i < V; i++){
+      if(dist[i] == INF) printf("INF\n");
+      else printf("%d\n", dist[i]);
+    }
   }
 }
