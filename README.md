@@ -5,6 +5,7 @@
 一部未検証なものが入っています。  
 ##index  
 ###data structures  
+* Union-Find [[C++]](/data_structure/union_find.cpp)
 * Fenwick tree [[C++]](/data_structure/fenwick_tree.cpp)
 * Leftist heap [[C++]](/data_structure/leftist_heap.cpp)
 * RMQ [[C++]](/data_structure/range_minimum_query.cpp)
