@@ -12,8 +12,10 @@
 ###sort  
 
 ###string  
-####文字列検索  
+####文字列検索
+単一パターン照合
 * Zアルゴリズム [[C++]](string/z_algorithm.cpp)
+* ラビン・カープ法 (Rabin-Karp) [[C++]](string/rabin_karp.cpp)
 
 ###graph  
 
