@@ -1,6 +1,6 @@
 /*
   Bellman-Ford 
-  shortest path problem & negative cost circle path checker
+  shortest path problem & negative cost cycle path checker
 
   Complexity:
   O(nm) 
@@ -8,7 +8,7 @@
   m : number of edges 
   
   Verified:
-  http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A
+  http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B
 */
 
 #include <iostream>
@@ -30,8 +30,6 @@ const int INF = (1 << 30) - 1;
 struct edge{
   int from, to, cost;
   edge(int from, int to, int cost) : from(from), to(to), cost(cost) {}
-  bool operator<(const edge &r) const{ return cost < r.cost; }
-  bool operator>(const edge &r) const{ return cost > r.cost; }
 };
 
 vector<vector<edge> > g;
@@ -45,28 +43,27 @@ void add_edge(int from, int to, int cost){
 //idx == prev_node[idx] となったら始点
 int prev_node[100100];
 int dist[100100];
-int bellman_ford(vector<vector<edge> > g, int s, int t){
+int bellman_ford(const vector<vector<edge> > &g, int s, int t){
   int V = g.size();
   fill(dist, dist + 100100, INF);
   fill(prev_node, prev_node + 100100, -1);
   
-  bool update;
   dist[s] = 0;
   prev_node[s] = s;
   for(int i = 0; i < V; i++){
-    update = false;
+    bool update = false;
     for(int j = 0; j < V; j++){
       for(int k = 0; k < g[j].size(); k++){
-	int from = j, to = g[j][k].to, cost = g[j][k].cost;
-	if(dist[to] > dist[from] + cost){
-	  dist[to] = dist[from] + cost;
-	  prev_node[to] = from;
+	edge e = g[j][k];
+	if(dist[e.from] != INF && dist[e.to] > dist[e.from] + e.cost){
+	  dist[e.to] = dist[e.from] + e.cost;
+	  prev_node[e.to] = e.from;
 	  update = true;
 	}
       }
     }
+    if(update && i == V - 1) return -INF; 
   }
-  if(update) return -INF; 
   return dist[t];
 }
 

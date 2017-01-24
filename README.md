@@ -23,11 +23,14 @@
 ####最短経路問題  
 単一始点最短経路問題
 * ダイクストラ法 (Dijkstra) [[C++]](/graph/dijkstra.cpp)
-* ベルマン-フォード法 (Bellman-Ford) [C++]
+* ベルマン・フォード法 (Bellman-Ford) [C++]
 
 ####全域木問題  
 最小全域木
 * クラスカル法 (Kruscal) [[C++]](/graph/kruscal.cpp)
 * プリム法 (Prim) [[C++]](/graph/prim.cpp)
+
+####最大流
+* フォード・ファルカーソン法 (Ford-Fulkerson) [[C++]](/graph/network/ford_fulkerson.cpp)
 
 ###numerics  
