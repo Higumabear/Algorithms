@@ -23,7 +23,7 @@
 ####最短経路問題  
 単一始点最短経路問題
 * ダイクストラ法 (Dijkstra) [[C++]](/graph/dijkstra.cpp)
-* ベルマン・フォード法 (Bellman-Ford) [C++]
+* ベルマン・フォード法 (Bellman-Ford) [[C++]](/graph/bellman_ford.cpp)
 
 ####全域木問題  
 最小全域木
