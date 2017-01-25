@@ -32,5 +32,6 @@
 
 ####最大流
 * フォード・ファルカーソン法 (Ford-Fulkerson) [[C++]](/graph/network/ford_fulkerson.cpp)
+* エドモンズ・カープ法 (Edmonds-Karp) [[C++]](/graph/network/edmonds_karp.cpp)
 
 ###numerics  
