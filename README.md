@@ -5,10 +5,11 @@
 一部未検証なものが入っています。  
 ##index  
 ###data structures  
-* [[C++]](/data_structure/union_find.cpp) Union-Find 
+* [[C++]](/data_structure/union_find.cpp) Union-Find
 * [[C++]](/data_structure/fenwick_tree.cpp) Fenwick tree
 * [[C++]](/data_structure/leftist_heap.cpp) Leftist heap
 * [[C++]](/data_structure/range_minimum_query.cpp) RMQ
+
 ---
 ###sort  
 ---
@@ -34,7 +35,8 @@
 ####最大流
 * [[C++]](/graph/network/ford_fulkerson.cpp) フォード・ファルカーソン法 (Ford-Fulkerson)
 * [[C++]](/graph/network/edmonds_karp.cpp) エドモンズ・カープ法 (Edmonds-Karp)
-* [[C++]](/graph/network/dinic.cpp) Dinic
+* [[C++]](/graph/network/dinic.cpp) Dinic  
 <font size="-1">↑Verifyしたけど正しい動作なのか不安😔</font>
+
 ---
 ###numerics  
