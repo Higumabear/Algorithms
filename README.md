@@ -35,8 +35,7 @@
 #####最大流
 * [[C++]](/graph/network/ford_fulkerson.cpp) フォード・ファルカーソン法 (Ford-Fulkerson)
 * [[C++]](/graph/network/edmonds_karp.cpp) エドモンズ・カープ法 (Edmonds-Karp)
-* [[C++]](/graph/network/dinic.cpp) Dinic  
-<font size="-1">↑Verifyしたけど正しい動作なのか不安😔</font>
-
+* [[C++]](/graph/network/dinic.cpp) Dinic <font size="-1">← Verifyしたけど正しい動作なのか不安😔</font>
+* [[C++]](/graph/network/capacity_scaling.cpp) 容量スケーリング法 (capacity scaling)
 
 ##numerics  
