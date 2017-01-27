@@ -5,33 +5,36 @@
 一部未検証なものが入っています。  
 ##index  
 ###data structures  
-* Union-Find [[C++]](/data_structure/union_find.cpp)
-* Fenwick tree [[C++]](/data_structure/fenwick_tree.cpp)
-* Leftist heap [[C++]](/data_structure/leftist_heap.cpp)
-* RMQ [[C++]](/data_structure/range_minimum_query.cpp)
-
+* [[C++]](/data_structure/union_find.cpp) Union-Find 
+* [[C++]](/data_structure/fenwick_tree.cpp) Fenwick tree
+* [[C++]](/data_structure/leftist_heap.cpp) Leftist heap
+* [[C++]](/data_structure/range_minimum_query.cpp) RMQ
+---
 ###sort  
-
+---
 ###string  
 ####文字列検索
-単一パターン照合
-* Zアルゴリズム [[C++]](string/z_algorithm.cpp)
-* ラビン・カープ法 (Rabin-Karp) [[C++]](string/rabin_karp.cpp)
+#####単一パターン照合
+* [[C++]](string/z_algorithm.cpp) Zアルゴリズム
+* [[C++]](string/rabin_karp.cpp) ラビン・カープ法 (Rabin-Karp)
 
+---
 ###graph  
 
 ####最短経路問題  
-単一始点最短経路問題
-* ダイクストラ法 (Dijkstra) [[C++]](/graph/dijkstra.cpp)
-* ベルマン・フォード法 (Bellman-Ford) [[C++]](/graph/bellman_ford.cpp)
+#####単一始点最短経路問題
+* [[C++]](/graph/dijkstra.cpp) ダイクストラ法 (Dijkstra)
+* [[C++]](/graph/bellman_ford.cpp) ベルマン・フォード法 (Bellman-Ford)
 
 ####全域木問題  
-最小全域木
-* クラスカル法 (Kruscal) [[C++]](/graph/kruscal.cpp)
-* プリム法 (Prim) [[C++]](/graph/prim.cpp)
+#####最小全域木
+* [[C++]](/graph/kruscal.cpp) クラスカル法 (Kruscal)
+* [[C++]](/graph/prim.cpp) プリム法 (Prim)
 
 ####最大流
-* フォード・ファルカーソン法 (Ford-Fulkerson) [[C++]](/graph/network/ford_fulkerson.cpp)
-* エドモンズ・カープ法 (Edmonds-Karp) [[C++]](/graph/network/edmonds_karp.cpp)
-
+* [[C++]](/graph/network/ford_fulkerson.cpp) フォード・ファルカーソン法 (Ford-Fulkerson)
+* [[C++]](/graph/network/edmonds_karp.cpp) エドモンズ・カープ法 (Edmonds-Karp)
+* [[C++]](/graph/network/dinic.cpp) Dinic
+<font size="-1">↑Verifyしたけど正しい動作なのか不安😔</font>
+---
 ###numerics  

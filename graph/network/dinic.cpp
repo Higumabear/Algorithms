@@ -25,12 +25,27 @@ struct edge{
   edge(int to, int cap, int rev) : to(to), cap(cap), rev(rev) {};
 };
 
-int prev[MAXN];
 vector<vector<edge> > G;
 
 void add_edge(int from, int to, int cap){
   G[from].push_back(edge(to, cap, G[to].size()));
   G[to].push_back(edge(from, 0, G[from].size() - 1));
+}
+
+int dfs(int idx, int t, vector<int> &level, int depth, int f){
+  if(idx == t) return f;
+  for(int u = 0; u < G[idx].size(); u++){
+    edge &e = G[idx][u];
+    if(e.cap > 0 && level[e.to] == depth + 1 && depth + 1 <= level[t]){
+      int d = dfs(e.to, t, level, depth + 1, min(e.cap, f));
+      if(d > 0){
+	e.cap -= d;
+	G[e.to][e.rev].cap += d;
+	return d;
+      }
+    }
+  }
+  return 0;
 }
 
 int dinic(int s, int t){
@@ -39,8 +54,8 @@ int dinic(int s, int t){
   
   while(true){
     vector<int> level(V, -1);
-    level[s] = 0;
     queue<int> Q;
+    level[s] = 0;
     Q.push(s);
     while(!Q.empty()){
       int v = Q.front(); Q.pop();
@@ -52,6 +67,10 @@ int dinic(int s, int t){
 	}
       }
     }
+    if(level[t] == -1) break;
+
+    int f;
+    while((f = dfs(s, t, level, 0, INF)) != 0) minflow += f;
   }
   
   return minflow;
@@ -66,6 +85,6 @@ int main(){
     cin >> s >> t >> c;
     add_edge(s, t, c);
   }
-  cout << edmonds_karp(0, v - 1) << endl;
+  cout << dinic(0, v - 1) << endl;
   return 0;
 }
