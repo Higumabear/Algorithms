@@ -33,39 +33,29 @@ void add_edge(int from, int to, int cap){
   G[to].push_back(edge(from, 0, G[from].size() - 1));
 }
 
-int dfs(int cur, int t, int f){
-  if(cur == t) return f;
-  vis[cur] = true;
-  for(int i = 0; i < G[cur].size(); i++){
-    edge &e = G[cur][i];
-    if(!vis[e.to] && e.cap){
-      int d = dfs(e.to, t, min(f, e.cap));
-      if(d > 0){
-	e.cap -= d;
-	G[e.to][e.rev].cap += d;
-	return d;
-      }
-    }
-  }
-  return 0;
-}
-
 int max_flow(int s, int t){
   int V = G.size();
   vector<vector<int> > cap(V, vector<int>(V, 0)), flow(V, vector<int>(V, 0));
-  vector<int> height(V, 0), gap(V, 0);
+  vector<int> height(V, 0), excess(V, 0);
 
   for(int i = 0; i < V; i++)
     for(int j = 0; j < G[i].size(); j++)
       cap[i][G[i][j].to] = G[i][j].cap;
 
   queue<int> Q;
-  height[s] = V;  
+  height[s] = V;
   for(int i = 0; i < G[s].size(); i++){
-    flow[s][G[s][i].to] = G[s][i].cap;
-    if()
+    int j = G[s][i].to;
+    flow[s][j] = cap[s][j]; flow[j][s] = -flow[s][j];
+    excess[j] = flow[s][j];
+    Q.push(G[s][i].to);
   }
-  
+  while(!Q.empty()){
+    int u = Q.front(); Q.pop();
+    while(excess[u] > 0){
+      
+    }
+  }
 }
 
 int main(){
