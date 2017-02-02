@@ -3,7 +3,7 @@
   maximum-flow algorithm
 
   Complexity:
-  O(V^2Å„E)
+  O(V^3)
 
   Verified:
   http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A
@@ -25,7 +25,6 @@ struct edge{
   edge(int to, int cap, int rev) : to(to), cap(cap), rev(rev) {};
 };
 
-bool vis[MAXN];
 vector<vector<edge> > G;
 
 void add_edge(int from, int to, int cap){
@@ -44,22 +43,39 @@ int max_flow(int s, int t){
 
   queue<int> Q;
   height[s] = V;
-  for(int i = 0; i < G[s].size(); i++){
-    int j = G[s][i].to;
-    flow[s][j] = cap[s][j]; flow[j][s] = -flow[s][j];
+  for(int j = 0; j < V; j++) if(cap[s][j] > 0) {
+    flow[s][j] = cap[s][j]; flow[j][s] = -flow[s][j];//residual edge
     excess[j] = flow[s][j];
-    Q.push(G[s][i].to);
+    Q.push(j);
   }
+
   while(!Q.empty()){
     int u = Q.front(); Q.pop();
-    while(excess[u] > 0){
-      
+    int h = INF;
+    bool push = false;
+    //cout << u << " ";
+    for(int v = 0; v < V; v++){
+      int rem = cap[u][v] - flow[u][v];
+      if(cap[u][v] - flow[u][v] > 0) h = min(h, height[v] + 1);
+      if(rem > 0 && height[u] == height[v] + 1){ // push
+	int delta = min(excess[u], rem);
+	flow[u][v] += delta;    flow[v][u] -= delta;
+	excess[u] -= delta;     excess[v] += delta;
+	push = true;
+      }
     }
+    if(!push && excess[u] > 0) height[u] = h; //relabel
+    for(int i = 0; i < V; i++) cout << height[i] << " ";
+    cout << endl;
+    if(excess[u] > 0) Q.push(u);
   }
+  int maxflow = 0;
+  for(int i = 0; i < V; i++) maxflow += flow[i][t];
+  return maxflow;
 }
 
 int main(){
-  for(int i = 0; i < MAXN; i++) G[i].clear();
+  //for(int i = 0; i < MAXN; i++) G[i].clear();
   int v, e;
   cin >> v >> e;
   G.resize(v);
@@ -69,6 +85,6 @@ int main(){
     cin >> s >> t >> c;
     add_edge(s, t, c);
   }
-  cout << ford_fulkerson(0, v - 1) << endl;
+  cout << max_flow(0, v - 1) << endl;
   return 0;
 }
