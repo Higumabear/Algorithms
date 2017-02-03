@@ -14,6 +14,7 @@
 #include <vector>
 #include <queue>
 #include <cstring>
+#include <algorithm>
 
 using namespace std;
 
@@ -41,33 +42,50 @@ int max_flow(int s, int t){
     for(int j = 0; j < G[i].size(); j++)
       cap[i][G[i][j].to] = G[i][j].cap;
 
-  queue<int> Q;
+  //queue<int> Q;
   height[s] = V;
   for(int j = 0; j < V; j++) if(cap[s][j] > 0) {
     flow[s][j] = cap[s][j]; flow[j][s] = -flow[s][j];//residual edge
     excess[j] = flow[s][j];
-    Q.push(j);
+    //Q.push(j);
   }
 
-  while(!Q.empty()){
-    int u = Q.front(); Q.pop();
+  while(1){
+    int u = max_element(excess.begin(), excess.begin() + V - 1) - excess.begin();
+    if(excess[u] <= 0 || u == s) break;
     int h = INF;
     bool push = false;
-    //cout << u << " ";
+    //cout << u << " " << excess[u] << endl;
     for(int v = 0; v < V; v++){
-      int rem = cap[u][v] - flow[u][v];
-      if(cap[u][v] - flow[u][v] > 0) h = min(h, height[v] + 1);
-      if(rem > 0 && height[u] == height[v] + 1){ // push
-	int delta = min(excess[u], rem);
-	flow[u][v] += delta;    flow[v][u] -= delta;
-	excess[u] -= delta;     excess[v] += delta;
-	push = true;
+      int residue = cap[u][v] - flow[u][v];
+      // if(residue > 0) h = min(h, height[v] + 1);
+      // if(residue > 0 && height[u] == height[v] + 1){ // push
+      // 	int delta = min(excess[u], residue);
+      // 	flow[u][v] += delta;    flow[v][u] -= delta;
+      // 	excess[u] -= delta;     excess[v] += delta;
+      // 	push = true;
+      // }
+      if(residue > 0){
+	h = min(h, height[v] + 1);
+	if(height[u] == height[v] + 1){ // push
+	  int delta = min(excess[u], residue);
+	  flow[u][v] += delta;    flow[v][u] -= delta;
+	  excess[u] -= delta;     excess[v] += delta;
+	  push = true;
+	  break;
+	}
       }
+
     }
     if(!push && excess[u] > 0) height[u] = h; //relabel
-    for(int i = 0; i < V; i++) cout << height[i] << " ";
-    cout << endl;
-    if(excess[u] > 0) Q.push(u);
+    
+
+    // for(int i = 0; i < V; i++) cout << excess[i] << " ";
+    // cout << endl;
+    // for(int i = 0; i < V; i++) cout << height[i] << " ";
+    // cout << endl;
+    // cout << "-----------------------------" << endl;
+    //if(excess[u] > 0) Q.push(u);
   }
   int maxflow = 0;
   for(int i = 0; i < V; i++) maxflow += flow[i][t];
