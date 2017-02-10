@@ -39,7 +39,8 @@
 * [[C++]](/graph/network/dinic.cpp) Dinic <font size="-1">← Verifyしたけど正しい動作なのか不安😔</font>
 * [[C++]](/graph/network/goldberg_tarjan.cpp) (naive) Goldberg-Tarjan
 * [[C++]](/graph/network/bipartite_matching.cpp) 二部マッチング (Edmonds-Karp)
-##numerics  
 
----
-You can use these codes for any purpose without any warranty.
+#####最小費用流
+* [[C++]](/graph/network/minimum_cost_flow.cpp) Primal-Dual
+
+##numerics  
