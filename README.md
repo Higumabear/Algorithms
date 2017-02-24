@@ -33,6 +33,7 @@
 
 ####強連結成分分解
 * [[C++]](/graph/scc_kosaraju.cpp) Kosaraju
+* [[C++]](/graph/scc_tarjan.cpp) Tarjan
 
 ####ネットワーク流
 #####最大流
