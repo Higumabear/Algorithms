@@ -34,6 +34,7 @@
 ####強連結成分分解
 * [[C++]](/graph/scc_kosaraju.cpp) Kosaraju
 * [[C++]](/graph/scc_tarjan.cpp) Tarjan
+* [[C++]](/graph/scc_gabow.cpp) Gabow
 
 ####ネットワーク流
 #####最大流
@@ -42,6 +43,8 @@
 * [[C++]](/graph/network/capacity_scaling.cpp) 容量スケーリング法 (capacity scaling)
 * [[C++]](/graph/network/dinic.cpp) Dinic <font size="-1">← Verifyしたけど正しい動作なのか不安😔</font>
 * [[C++]](/graph/network/goldberg_tarjan.cpp) (naive) Goldberg-Tarjan
+
+##### マッチング
 * [[C++]](/graph/network/bipartite_matching.cpp) 二部マッチング (Ford-Fulkerson)
 * [[C++]](/graph/network/bipartite_matching_hopcroft_karp.cpp) 二部マッチング (Hopcroft-Karp)
 
