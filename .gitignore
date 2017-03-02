@@ -1,5 +1,7 @@
 *.bak
 *.exe
 *.out
+*.dat
 *~
 test.cpp
+tmp.cpp

@@ -1,6 +1,12 @@
 /*
   Lowest Common Ancestor by doubling
 
+  Complexity:
+  preprocess: O(VlogV)
+  per query:  O(logV)
+
+  Verified:
+  http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C
 
  */
 
@@ -13,10 +19,10 @@ using namespace std;
 struct lca{
   vector<vector<int> > g, parent;
   vector<int> depth;
-  int K;
-  lca(int V): g(V), depth(V) {
-    K = log2(V + 1.0);
-    parent.assign(V, vector<int>(K));
+  int K, V;
+  lca(int V): g(V), depth(V), V(V) {
+    K = 32;
+    parent.assign(V, vector<int>(K, -1));
   }
   
   void add_edge(int par, int ch){ g[par].push_back(ch); }
@@ -36,10 +42,10 @@ struct lca{
 
   int search(int u, int v){
     if(depth[u] > depth[v]) swap(u, v);
-    for(int k = 0; k < K; k++){
+    for(int k = 0; k < K; k++)
       if((depth[v] - depth[u]) >> k & 1)
 	v = parent[v][k];
-    }
+    
     if(u == v) return u;
     for(int k = K - 1; k >= 0; k--){
       if(parent[u][k] != parent[v][k]){
@@ -72,4 +78,5 @@ int main(){
     int s, t; cin >> s >> t;
     cout << lca.search(s, t) << endl;
   }
+  return 0;
 }

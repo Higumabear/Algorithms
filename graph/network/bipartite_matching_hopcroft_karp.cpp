@@ -47,10 +47,11 @@ struct hopcroft_karp{
     return false;
   }
   
+  /* Construct vertex disjoint level graph */
   bool bfs(){
     fill(level.begin(), level.end(), INF);
 
-    queue<int> Q;
+    queue<int> Q; //enqueue disjoint vertices in L
     for(int i = 0; i < L; i++){
       if(match[i] != NIL) continue;
       Q.push(i);
@@ -68,12 +69,13 @@ struct hopcroft_karp{
 	}
       }
     }
-    return level[NIL] != INF ;    
+    /* check whether vertex-disjoint augmenting path exists */
+    return level[NIL] != INF ;
   }
 
   int bipartite_matching(){
     fill(match.begin(), match.end(), NIL);
-    while(bfs())
+    while(bfs()) /* while vertex-disjoint augmenting path exists */
       for(int u = 0; u < L; u++)
 	if(match[u] == NIL)
 	  matching += dfs(u);
